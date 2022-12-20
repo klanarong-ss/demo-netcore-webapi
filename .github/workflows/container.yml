@@ -16,4 +16,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: klanarong/demo-netcore-webapi:lastest, klanarong/demo-netcore-webapi:${{ github.run_number }}
+          tags: klanarong/demo-netcore-webapi:lastest
