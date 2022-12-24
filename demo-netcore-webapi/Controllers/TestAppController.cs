@@ -39,5 +39,12 @@ namespace demo_netcore_webapi.Controllers
         {
             return Ok("Test Success-444");
         }
+
+        [HttpGet]
+        [Route("test05")]
+        public IActionResult test05()
+        {
+            return Ok("Test Success-555");
+        }
     }
 }
