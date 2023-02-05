@@ -1,6 +1,4 @@
 on: push
-evn:
-  DOCKER_IMAGE_NAME: "klanarong/demo-netcore-webapi"
 jobs:
   build-container:
     name: Build container
