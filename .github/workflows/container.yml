@@ -1,4 +1,6 @@
 on: push
+evn:
+  DOCKER_IMAGE_NAME: "klanarong/demo-netcore-webapi"
 jobs:
   build-container:
     name: Build container
@@ -18,15 +20,22 @@ jobs:
           push: true
           tags: klanarong/demo-netcore-webapi:latest
 
-      - name: Azure Login
-        uses: azure/login@v1
+      - name: Remote to server
+        user: appleboy/ssh-action@v0.1.2
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          host: ${{secrets.SSH_HOST}}
+          key: ${{secrets.SSH_KEY}}
+          username: ${{secrets.SSH_USERNAME}}
 
-      - name: Azure WebApp Deployment
-        uses: Azure/webapps-deploy@v2
-        with:
-          # Name of the Azure Web App
-          app-name: "demo-webapi-1"
-          # Applies to Web App Containers only: Specify the fully qualified container image(s) name. For example, 'myregistry.azurecr.io/nginx:latest' or 'python:3.7.2-alpine/'. For multi-container scenario multiple container image names can be provided (multi-line separated)
-          images: "klanarong/demo-netcore-webapi:latest"
+      # - name: Azure Login
+      #   uses: azure/login@v1
+      #   with:
+      #     creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      # - name: Azure WebApp Deployment
+      #   uses: Azure/webapps-deploy@v2
+      #   with:
+      #     # Name of the Azure Web App
+      #     app-name: "demo-webapi-1"
+      #     # Applies to Web App Containers only: Specify the fully qualified container image(s) name. For example, 'myregistry.azurecr.io/nginx:latest' or 'python:3.7.2-alpine/'. For multi-container scenario multiple container image names can be provided (multi-line separated)
+      #     images: "${{env.DOCKER_IMAGE_NAME}}:latest"
